@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "hashtable.h"
+#include "getHashed.h"
 
 int main( int argc, char **argv ) {
-    dict_t *table = createDict(5);
+    ghashed_t *table = gh_create(5);
     if( table == NULL){
         fprintf(stderr, "Could not create dictionary, exiting.\n");
         return -1;
@@ -17,14 +17,14 @@ int main( int argc, char **argv ) {
 
     // Add everything to dictionary
     printf("Adding everything to dictionary\n");
-    dictPut(table, k00, d00);
-    dictPut(table, k01, d01);
-    dictPut(table, k02, d02);
-    dictPut(table, k10, d10);
-    dictPut(table, k11, d11);
-    dictPut(table, k12, d12);
-    dictPut(table, k20, d20);
-    dictPut(table, k21, d21);
+    gh_put(table, k00, d00);
+    gh_put(table, k01, d01);
+    gh_put(table, k02, d02);
+    gh_put(table, k10, d10);
+    gh_put(table, k11, d11);
+    gh_put(table, k12, d12);
+    gh_put(table, k20, d20);
+    gh_put(table, k21, d21);
     printf("0 %s: %s\n", k00,(char*)dictGet(table, k00));
     printf("0 %s: %s\n", k01,(char*)dictGet(table, k01));
     printf("0 %s: %s\n", k02,(char*)dictGet(table, k02));
@@ -37,9 +37,9 @@ int main( int argc, char **argv ) {
 
     // Delete some keys from start, middle, end
     printf("Delete keys from start, middle, end\n");
-    dictDeleteKey(table, k00);
-    dictDeleteKey(table, k11);
-    dictDeleteKey(table, k21);
+    gh_delete_key(table, k00);
+    gh_delete_key(table, k11);
+    gh_delete_key(table, k21);
     printf("0 %s: %s\n", k00,(char*)dictGet(table, k00));
     printf("0 %s: %s\n", k01,(char*)dictGet(table, k01));
     printf("0 %s: %s\n", k02,(char*)dictGet(table, k02));
@@ -51,7 +51,7 @@ int main( int argc, char **argv ) {
     printf("Collisions: %d\n\n", table->collisions);
 
     // Put a key back
-    dictPut(table, k21, d21);
+    gh_put(table, k21, d21);
     printf("Put a key back\n");
     printf("0 %s: %s\n", k00,(char*)dictGet(table, k00));
     printf("0 %s: %s\n", k01,(char*)dictGet(table, k01));
@@ -65,9 +65,9 @@ int main( int argc, char **argv ) {
 
     // Delete all keys from an index
     printf("Delete all keys from an index\n");
-    dictDeleteKey(table, k00);
-    dictDeleteKey(table, k01);
-    dictDeleteKey(table, k02);
+    gh_delete_key(table, k00);
+    gh_delete_key(table, k01);
+    gh_delete_key(table, k02);
     printf("0 %s: %s\n", k00,(char*)dictGet(table, k00));
     printf("0 %s: %s\n", k01,(char*)dictGet(table, k01));
     printf("0 %s: %s\n", k02,(char*)dictGet(table, k02));
@@ -80,7 +80,7 @@ int main( int argc, char **argv ) {
 
     // Add a key to that index
     printf("Put a key back into that index\n");
-    dictPut(table, k02, d02);
+    gh_put(table, k02, d02);
     printf("0 %s: %s\n", k00,(char*)dictGet(table, k00));
     printf("0 %s: %s\n", k01,(char*)dictGet(table, k01));
     printf("0 %s: %s\n", k02,(char*)dictGet(table, k02));
@@ -92,7 +92,7 @@ int main( int argc, char **argv ) {
     printf("Collisions: %d\n\n", table->collisions);
 
     printf("Delete the table\n");
-    dictDelete(&table);
+    gh_delete(&table);
     if(table == NULL){
       puts("It is deleted.");
     }

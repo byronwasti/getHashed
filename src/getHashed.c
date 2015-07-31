@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "hashtable.h"
+#include "getHashed.h"
 
 /* Static function prototypes */
 static unsigned long hash(const char *str);
@@ -22,13 +22,13 @@ static unsigned long hash(const char *str)
 }
 
 
-dict_t *createDict(unsigned int size){
+ghashed_t *gh_create(unsigned int size){
   if( size < 1 ){
     fprintf(stderr, "Size of hash table cannot be less than 1!");
     return NULL;
   }
 
-  dict_t *table = malloc(sizeof(dict_t));
+  ghashed_t *table = malloc(sizeof(ghashed_t));
   if( table == NULL ){
     fprintf(stderr, "Could not allocate memory for dictionary object\n");
     fprintf(stderr, "TRACEBACK: %s %d\n", __FILE__, __LINE__);
@@ -51,7 +51,7 @@ dict_t *createDict(unsigned int size){
 }
 
 
-int dictDelete(dict_t **table){
+int gh_delete(ghashed_t **table){
 
   for(int i=0; i< (*table)->size; i++){
     if(removePairs((*table)->keys[i]) < 0 ){
@@ -126,7 +126,7 @@ static pair_t *getPair(pair_t *sweep, const char *key ){
 }
 
 
-int dictPut(dict_t *table, const char *key, void *data){
+int gh_put(ghashed_t *table, const char *key, void *data){
   unsigned int index;
   pair_t *pair;
 
@@ -178,7 +178,7 @@ int dictPut(dict_t *table, const char *key, void *data){
 }
 
 
-void *dictGet(dict_t *table, const char *key){
+void *gh_get(ghashed_t *table, const char *key){
   unsigned int index;
   pair_t *pair;
 
@@ -192,7 +192,7 @@ void *dictGet(dict_t *table, const char *key){
 }
 
 
-int dictDeleteKey( dict_t *table, const char *key){
+int gh_delete_key( ghashed_t *table, const char *key){
   unsigned int index;
   pair_t *pair;
 
