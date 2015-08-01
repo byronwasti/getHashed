@@ -1,5 +1,5 @@
-#ifndef HASHTABLE_H
-#define HASHTABLE_H
+#ifndef GETHASHED_H
+#define GETHASHED_H
 
 /* Pairing struct */
 typedef struct pair_s{
@@ -10,11 +10,11 @@ typedef struct pair_s{
 } pair_t;
 
 /* Dictionary object */
-typedef struct dict_s{
+typedef struct ghashed_s{
     unsigned int size;       // Number of indices
     unsigned int collisions; // Number of collisions in indices
     pair_t **keys;           // Keys array
-} dict_t;
+} gHash_t;
 
 
 /* Create a dictionary */
@@ -30,7 +30,7 @@ typedef struct dict_s{
  *    success = Pointer to dictionary memory
  *    failure = NULL pointer
  */
-dict_t *createDict(unsigned int size);
+gHash_t *gHashNew(unsigned int size);
 
 
 /* Put a key-data pair in dictionary*/
@@ -51,7 +51,7 @@ dict_t *createDict(unsigned int size);
  *    Replaced key     = 2
  *    Failed           = -1
  */
-int dictPut(dict_t *table, const char *key, void *data);
+int gHashPut(gHash_t *table, const char *key, void *data);
 
 
 /* Get the pointer from key */
@@ -67,7 +67,7 @@ int dictPut(dict_t *table, const char *key, void *data);
  *    Found     = Void pointer to data
  *    Not Found = NULL
  */
-void *dictGet(dict_t *table, const char *key);
+void *gHashGet(gHash_t *table, const char *key);
 
 
 /* Delete a key from the dictionary */
@@ -83,7 +83,7 @@ void *dictGet(dict_t *table, const char *key);
  *    Deleted key  = 0
  *    No Key Found = 1
  */
-int dictDeleteKey( dict_t *table, const char *key);
+int gHashDeleteKey( gHash_t *table, const char *key);
 
 
 /* Delete the entire dictionary */
@@ -93,7 +93,7 @@ int dictDeleteKey( dict_t *table, const char *key);
  *
  * Parameters
  *    table = Pointer to table object;
- *            ex:   dict_t *table;
+ *            ex:   ghashed_t *table;
  *                  table = createDict(10);
  *                  dictDelete( &table );
  *              
@@ -101,6 +101,6 @@ int dictDeleteKey( dict_t *table, const char *key);
  *    Success = 0
  *    Failure = -1
  */
-int dictDelete(dict_t **table);
+int gHashDelete(gHash_t **table);
 
 #endif
