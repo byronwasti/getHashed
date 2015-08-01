@@ -14,7 +14,7 @@ typedef struct ghashed_s{
     unsigned int size;       // Number of indices
     unsigned int collisions; // Number of collisions in indices
     pair_t **keys;           // Keys array
-} ghashed_t;
+} gHash_t;
 
 
 /* Create a dictionary */
@@ -30,7 +30,7 @@ typedef struct ghashed_s{
  *    success = Pointer to dictionary memory
  *    failure = NULL pointer
  */
-ghashed_t *gh_create(unsigned int size);
+gHash_t *gHashNew(unsigned int size);
 
 
 /* Put a key-data pair in dictionary*/
@@ -51,7 +51,7 @@ ghashed_t *gh_create(unsigned int size);
  *    Replaced key     = 2
  *    Failed           = -1
  */
-int gh_put(ghashed_t *table, const char *key, void *data);
+int gHashPut(gHash_t *table, const char *key, void *data);
 
 
 /* Get the pointer from key */
@@ -67,7 +67,7 @@ int gh_put(ghashed_t *table, const char *key, void *data);
  *    Found     = Void pointer to data
  *    Not Found = NULL
  */
-void *gh_get(ghashed_t *table, const char *key);
+void *gHashGet(gHash_t *table, const char *key);
 
 
 /* Delete a key from the dictionary */
@@ -83,7 +83,7 @@ void *gh_get(ghashed_t *table, const char *key);
  *    Deleted key  = 0
  *    No Key Found = 1
  */
-int gh_delete_key( ghashed_t *table, const char *key);
+int gHashDeleteKey( gHash_t *table, const char *key);
 
 
 /* Delete the entire dictionary */
@@ -101,6 +101,6 @@ int gh_delete_key( ghashed_t *table, const char *key);
  *    Success = 0
  *    Failure = -1
  */
-int gh_delete(ghashed_t **table);
+int gHashDelete(gHash_t **table);
 
 #endif

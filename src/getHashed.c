@@ -22,13 +22,13 @@ static unsigned long hash(const char *str)
 }
 
 
-ghashed_t *gh_create(unsigned int size){
+gHash_t *gHashNew(unsigned int size){
   if( size < 1 ){
     fprintf(stderr, "Size of hash table cannot be less than 1!");
     return NULL;
   }
 
-  ghashed_t *table = malloc(sizeof(ghashed_t));
+  gHash_t *table = malloc(sizeof(gHash_t));
   if( table == NULL ){
     fprintf(stderr, "Could not allocate memory for dictionary object\n");
     fprintf(stderr, "TRACEBACK: %s %d\n", __FILE__, __LINE__);
@@ -51,7 +51,7 @@ ghashed_t *gh_create(unsigned int size){
 }
 
 
-int gh_delete(ghashed_t **table){
+int gHashDelete(gHash_t **table){
 
   for(int i=0; i< (*table)->size; i++){
     if(removePairs((*table)->keys[i]) < 0 ){
@@ -126,7 +126,7 @@ static pair_t *getPair(pair_t *sweep, const char *key ){
 }
 
 
-int gh_put(ghashed_t *table, const char *key, void *data){
+int gHashPut(gHash_t *table, const char *key, void *data){
   unsigned int index;
   pair_t *pair;
 
@@ -178,7 +178,7 @@ int gh_put(ghashed_t *table, const char *key, void *data){
 }
 
 
-void *gh_get(ghashed_t *table, const char *key){
+void *gHashGet(gHash_t *table, const char *key){
   unsigned int index;
   pair_t *pair;
 
@@ -192,7 +192,7 @@ void *gh_get(ghashed_t *table, const char *key){
 }
 
 
-int gh_delete_key( ghashed_t *table, const char *key){
+int gHashDeleteKey( gHash_t *table, const char *key){
   unsigned int index;
   pair_t *pair;
 
